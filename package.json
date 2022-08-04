@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "buildStricOff":"tsc --strict false &&vite build",
     "preview": "vite preview",
     "pformat":"prettier -w ./src/"
   },

@@ -15,7 +15,7 @@ function App() {
         inputForm={inputForm}
         setInputForm={setInputForm}
         apiData={apiData}
-        setApiData={setApiData} 
+        setApiData={setApiData}
         searchedApiData={searchedApiData}
         setSearchedApiData={setSearchedApiData}
       />

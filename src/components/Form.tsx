@@ -1,17 +1,18 @@
 import axios, { Axios, AxiosResponse } from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
-import type { SetStateAction,Dispatch } from "react";
+import type { SetStateAction, Dispatch } from "react";
 import { FaSearch } from "react-icons/fa/";
 
-interface FormPropsTypes {
-  inputForm: string;
-  setInputForm: Dispatch<SetStateAction<string>>;
-  apiData: never[];
-  setSearchedApiData: Dispatch<SetStateAction<any | never[]>>;
-  searchedApiData: never[];
-  setApiData: Dispatch<SetStateAction<never[]>>;
+export interface FormPropsTypes {
+  inputForm?: string | undefined | any;
+  setInputForm?: Dispatch<SetStateAction<string>> | undefined | any;
+  apiData?: never[];
+  setSearchedApiData?: Dispatch<SetStateAction<any | never[]>> | any | undefined;
+  searchedApiData?: never[];
+  setApiData?: Dispatch<SetStateAction<never[]>>;
 }
+
 
 export const Form: React.FC<FormPropsTypes> = ({
   inputForm,
@@ -21,7 +22,7 @@ export const Form: React.FC<FormPropsTypes> = ({
   setApiData,
   searchedApiData,
 }) => {
-  const inputHandler = (e:any) => setInputForm(e.target.value);
+  const inputHandler = (e:any) => setInputForm( ""||e.target.value);
   async function fetchApodApi() {
     try {
       const data = await axios.get(
@@ -34,17 +35,17 @@ export const Form: React.FC<FormPropsTypes> = ({
     }
   }
 
-  function SubmitHandler(e:any) {
+  function SubmitHandler(e: any) {
     e.preventDefault();
     searchMediaLibraryHandler();
   }
 
   function searchMediaLibraryHandler() {
-    if (inputForm.length > 0) {
+    if (inputForm?.length > 0) {
       const data = axios.get(
         `https://images-api.nasa.gov/search?q=${inputForm}`
       );
-      data.then((result:AxiosResponse) => setSearchedApiData([result.data]));
+      data.then((result: AxiosResponse<never[],never[]>) => setSearchedApiData([result.data]));
     }
   }
 

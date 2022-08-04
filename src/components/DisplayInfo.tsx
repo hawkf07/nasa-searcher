@@ -10,8 +10,9 @@ interface itemsApiDataTypes {
 }
 
 export function DisplayInfo({ searchedApiData, apiData, inputForm }) {
-  if (searchedApiData.length === 0) {
-    return;
+  if (searchedApiData[0]?.collection?.items?.length === 0) {
+    console.log(searchedApiData)
+    return <h1 className="mx-3"> There is no result for {inputForm} </h1>
   } else 
     return(
     <section className="flex flex-col p-5" >
@@ -21,11 +22,10 @@ export function DisplayInfo({ searchedApiData, apiData, inputForm }) {
           {item.data.flatMap((dataItem:itemsApiDataTypes)=> {
               return(
               <ul key={itemKey} className="flex gap-3 p-3 flex-col justify-center items-center">
-              <li> key : {itemKey} </li>
               {item?.links?.map(imgLinks=> {
                   return(
                   <>
-                  {imgLinks.rel === "preview" &&<img className="w-full" src={imgLinks.href} />}
+                  {imgLinks.rel === "preview" &&<img className="w-full rounded-lg" src={imgLinks.href} />}
                   </>
                   )
                 })}

@@ -6,7 +6,7 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 function App() {
-  const [inputForm, setInputForm] = useState([]);
+  const [inputForm, setInputForm] = useState("");
   const [apiData, setApiData] = useState([]);
   const [searchedApiData, setSearchedApiData] = useState([]);
   return (
@@ -14,6 +14,8 @@ function App() {
       <Form
         inputForm={inputForm}
         setInputForm={setInputForm}
+        apiData={apiData}
+        setApiData={setApiData} 
         searchedApiData={searchedApiData}
         setSearchedApiData={setSearchedApiData}
       />

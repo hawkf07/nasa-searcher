@@ -1,15 +1,16 @@
-import axios from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
+import type { SetStateAction,Dispatch } from "react";
 import { FaSearch } from "react-icons/fa/";
 
 interface FormPropsTypes {
   inputForm: string;
-  setInputForm: React.SetStateAction<string>;
+  setInputForm: Dispatch<SetStateAction<string>>;
   apiData: never[];
-  setSearchedApiData: React.SetStateAction<never[]>;
+  setSearchedApiData: Dispatch<SetStateAction<any | never[]>>;
   searchedApiData: never[];
-  setApiData: React.SetStateAction<never[]>;
+  setApiData: Dispatch<SetStateAction<never[]>>;
 }
 
 export const Form: React.FC<FormPropsTypes> = ({
@@ -20,7 +21,7 @@ export const Form: React.FC<FormPropsTypes> = ({
   setApiData,
   searchedApiData,
 }) => {
-  const inputHandler = (e) => setInputForm(e.target.value);
+  const inputHandler = (e:any) => setInputForm(e.target.value);
   async function fetchApodApi() {
     try {
       const data = await axios.get(
@@ -33,7 +34,7 @@ export const Form: React.FC<FormPropsTypes> = ({
     }
   }
 
-  function SubmitHandler(e) {
+  function SubmitHandler(e:any) {
     e.preventDefault();
     searchMediaLibraryHandler();
   }
@@ -43,15 +44,12 @@ export const Form: React.FC<FormPropsTypes> = ({
       const data = axios.get(
         `https://images-api.nasa.gov/search?q=${inputForm}`
       );
-      data.then((result) => setSearchedApiData([result.data]));
+      data.then((result:AxiosResponse) => setSearchedApiData([result.data]));
     }
   }
-  useEffect(() => {
-    fetchApodApi();
-  }, []);
 
   return (
-    <section name="form w-full p-3">
+    <section className="form w-full p-3">
       <h1 className="text-center text-3xl">NASA MEDIA LIBRARY Searcher</h1>
       <form className="flex p-3" onSubmit={SubmitHandler}>
         <div className="relative flex text-center items-center w-full">

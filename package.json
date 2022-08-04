@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pformat":"prettier -w ./src/"
   },
   "dependencies": {
     "axios": "^0.27.2",

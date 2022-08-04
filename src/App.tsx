@@ -17,7 +17,11 @@ function App() {
         searchedApiData={searchedApiData}
         setSearchedApiData={setSearchedApiData}
       />
-      <DisplayInfo inputForm={inputForm} searchedApiData={searchedApiData} apiData={apiData} />
+      <DisplayInfo
+        inputForm={inputForm}
+        searchedApiData={searchedApiData}
+        apiData={apiData}
+      />
     </div>
   );
 }

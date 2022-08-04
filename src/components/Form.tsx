@@ -43,7 +43,7 @@ export const Form: React.FC<FormPropsTypes> = ({
       const data = axios.get(
         `https://images-api.nasa.gov/search?q=${inputForm}`
       );
-      data.then((result) => setSearchedApiData(result.data));
+      data.then((result) => setSearchedApiData([result.data]));
     }
   }
   useEffect(() => {

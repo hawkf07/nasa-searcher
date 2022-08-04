@@ -1,56 +1,45 @@
 interface itemsApiDataTypes {
   center: string;
-  dateCreated: string;
+  date_created: string;
   description: string;
   keywords: Array<string>;
-  mediaType: string;
-  nasaId: string;
-  secondaryCreator?: string;
+  media_type: string;
+  nasa_id: string;
+  secondary_creator?: string;
   title: string;
 }
 
-export function DisplayInfo({ searchedApiData, apiData,inputForm }) {
-  if (searchedApiData.length === 0) return
-  const data = searchedApiData.collection?.items.flatMap(item => item.data)
-  const flattedData = data.flatMap(item => item)
-  console.log(data,"is data",flattedData,"is flattedData")
-  return (
-    <section name="display-info" className="w-full p-3">
-      <div className="container" name="img-container">
-      {searchedApiData.collection.links.map(item => {
+export function DisplayInfo({ searchedApiData, apiData, inputForm }) {
+  if (searchedApiData.length === 0) {
+    return;
+  } else 
+    return(
+    <section className="flex flex-col p-5" >
+      {searchedApiData[0].collection?.items?.flatMap( (item:any,itemKey) => {
           return(
-          <>
-          <img src={item.links} />
-          </>
+          <section>
+          {item.data.flatMap((dataItem:itemsApiDataTypes)=> {
+              return(
+              <ul key={itemKey} className="flex gap-3 p-3 flex-col justify-center items-center">
+              <li> key : {itemKey} </li>
+              {item?.links?.map(imgLinks=> {
+                  return(
+                  <>
+                  {imgLinks.rel === "preview" &&<img className="w-full" src={imgLinks.href} />}
+                  </>
+                  )
+                })}
+              <li className="text-2xl">  <h2> {dataItem.title} </h2> </li>
+              <li> {dataItem.date_created} </li>
+              <li>keywords: {dataItem.keywords} </li>
+              <li> id {dataItem.nasa_id} </li>
+              <li>media type {dataItem.media_type} </li>
+              </ul>
+              )
+            })}
+          </section>
           )
         })}
-      </div>
-      { Array.isArray(flattedData) ?  flattedData?.flatMap((item) => {
-        return (
-          <section name="card-container" className="">
-            <ul className="gap-5  p-5 justify-center items-center flex  ">
-              <section
-                name="card"
-                className="flex flex-col   p-3 m-3 items-center rounded w-full gap-3"
-              >
-                <section name="card-title" className="text-2xl ">
-                  <h2>title:{item.title} </h2>
-                </section>
-                <section
-                  name="card-body"
-                  className="flex flex-col justify-center items-start p-3"
-                >
-                  
-                  <li> id: {item.nasa_id} </li>
-                  <li> keywords: {item.keywords} </li>
-                  <li> description: {item.description} </li>
-                  <li> dateCreated: {item.date_created} </li>
-                </section>
-              </section>
-            </ul>
-          </section>
-        );
-      }) : <h1> data is undefined </h1>}
     </section>
-  );
+    )
 }
